@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 using TMNAdapter_Demo_NUnit.Common;
@@ -6,16 +7,16 @@ using TMNAdapter_Demo_NUnit.Common;
 namespace TMNAdapter_Demo_NUnit
 {
     [TestFixture]
-    public class WebTests : BaseTest
+    public class WebTests 
     {
         [SetUp]
         public void Initialize()
         {
-            Screenshoter.Initialize(Browser.Instance.GetDriver());
+            Screenshoter.Instance.Initialize(Browser.Instance.GetDriver());
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2466")]
+        [JiraTestMethod("EPMFARMATS-2466")]
         public void AlwaysPassedTest()
         {
             YouTubePage page = new YouTubePage("https://www.youtube.com/watch?v=UKKYpdWPSL8");
@@ -28,7 +29,7 @@ namespace TMNAdapter_Demo_NUnit
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2470")]
+        [JiraTestMethod("EPMFARMATS-2470")]
         public void AlwaysFailedTest()
         {
             YouTubePage page = new YouTubePage("https://www.youtube.com/watch?v=sU4i4DTr1HQ");
@@ -38,7 +39,7 @@ namespace TMNAdapter_Demo_NUnit
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-            Screenshoter.TakeScreenshot();
+            Screenshoter.Instance.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
         }
@@ -46,7 +47,7 @@ namespace TMNAdapter_Demo_NUnit
         [TearDown]
         public void Close()
         {
-            Screenshoter.Initialize(null);
+            Screenshoter.Instance.Initialize(null);
             Browser.Instance.Quit();
         }
     }

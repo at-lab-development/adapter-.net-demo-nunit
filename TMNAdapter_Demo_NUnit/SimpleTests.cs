@@ -1,17 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
 using System.IO;
+using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 
-[assembly: AssemblyAction]
+[assembly: GenerateTestReportForJIRA]
 
 namespace TMNAdapter_Demo_NUnit
 {
     [TestFixture]
-    class SimpleTests : BaseTest
+    [Parallelizable(ParallelScope.All)]
+    class SimpleTests 
     {
         [Test]
-        [JiraIssueKey("EPMFARMATS-2464")]
+        [JiraTestMethod("EPMFARMATS-2464")]
         public void TestParametersAdding()
         {
             JiraInfoProvider.SaveParameter("Username", "Mr.Smith");
@@ -22,14 +24,14 @@ namespace TMNAdapter_Demo_NUnit
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2472")]
+        [JiraTestMethod("EPMFARMATS-2472")]
         public void TestExeptionInTest()
         {
             throw new Exception("Testing test with exeption");
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2447")]
+        [JiraTestMethod("EPMFARMATS-2447")]
         public void CheckArtifacts()
         {
             var random = new Random();
